@@ -22,6 +22,8 @@ fun main(args: Array<String>) {
         install(ContentNegotiation){
             jackson { }
         }
+        Database.connect("jdbc:postgresql://localhost:5432/Deportitos", driver = "org.postgresql.Driver",
+                user = "postgres", password = "pass123") // TODO: Change this way to use the "secret" way.
 
         routing {
             get("/") {
