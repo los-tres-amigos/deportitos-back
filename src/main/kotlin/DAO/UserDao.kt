@@ -1,6 +1,0 @@
-package DAO
-
-class UserDao {
-
-
-}
