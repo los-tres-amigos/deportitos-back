@@ -38,7 +38,7 @@ fun main(args: Array<String>) {
         }
 
         Database.connect("jdbc:postgresql://localhost:5432/deportitosdb", driver = "org.postgresql.Driver",
-                user = "postgres", password = "pass123") // TODO: Change this way to use the "secret" way.
+                user = "postgres", password = "pass123") // TODO: Change this way to use the "user-secret" way o something similar.
         transaction { SchemaUtils.create(UsersDao) }
 
         val authController by inject<AuthController>()
