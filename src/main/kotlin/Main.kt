@@ -24,7 +24,8 @@ val helloAppModule = module {
     single<HelloService> { HelloServiceImpl(get()) }
     single { HelloRepository() }
     single { AuthController(get()) }
-    single { UserStore() }
+    single { UserStore(get()) }
+    single { UsersDao }
 }
 
 fun main(args: Array<String>) {

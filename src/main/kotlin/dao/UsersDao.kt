@@ -2,7 +2,7 @@ package dao
 
 import org.jetbrains.exposed.sql.Table
 
-object Users : Table(){
+object UsersDao : Table("User"){
 
     var idUser = integer("IdUser").autoIncrement()
     var displayName = varchar("DisplayName", 150)

@@ -4,9 +4,10 @@ import io.ktor.application.ApplicationCall
 import io.ktor.request.receive
 import io.ktor.response.respond
 import models.User
+import store.UserStore
 import wrappers.Responder
 
-class AuthController {
+class AuthController (private val userStore: UserStore){
 
     suspend fun register(call: ApplicationCall) {
         val user = call.receive<User>()
@@ -15,16 +16,23 @@ class AuthController {
         if (user.displayName.isNullOrEmpty() || user.email.isNullOrEmpty() || user.password.isNullOrEmpty()){
             val response = Responder(false, "All the fields are mandatory.", null)
             call.respond(response)
+            return
         }
 
         // Checking the user does not exist already
+        if (userStore.userAlreadyExist(user.email!!)){
+           val response = Responder(false, "The user already exist.", null)
+            call.respond(response)
+            return
+        }
 
+        // TODO: Encrypt the password before create the user.
 
         // Creating the new user
+        userStore.insertUser(user)
 
-        // Creating the token
-
-        // Returning the token
+        // TODO: Change this to redirect to login method which will creates the token by a obtained user.
+        // Returning the user
         val response = Responder(true, "User has been created.", user)
         call.respond(response)
     }
