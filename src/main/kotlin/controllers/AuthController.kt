@@ -1,6 +1,6 @@
 package controllers
 
-import helpers.CryptoHelper
+import helpers.sha512
 import io.ktor.application.ApplicationCall
 import io.ktor.request.receive
 import io.ktor.response.respond
@@ -28,7 +28,7 @@ class AuthController (private val userStore: UserStore){
         }
 
         // Encrypting the password and creating the new user
-        user.password = CryptoHelper.sha512(user.password!!)
+        user.password = sha512(user.password!!)
         userStore.insertUser(user)
 
         // TODO: Change this to redirect to login method which will creates the token by a obtained user.
